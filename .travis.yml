@@ -28,7 +28,7 @@ script:
   - ls -la /home/travis/test
 
 backup_home: /home/travis/backup
-backups:
+backup_profiles:
   - name: test
     source: /home/travis/build
     target: file:///home/travis/test
