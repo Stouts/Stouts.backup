@@ -6,4 +6,4 @@
 WORKDIR={{backup_work}}/{{item.name}}
 DBNAME={{item.source.split('mysql://')[-1]}}
 
-mysqldump -u {{backup_mysql_user}} -p{{backup_mysql_pass}} $DBNAME | gzip > "${WORKDIR}/${DBNAME}.gz"
+mysqldump -u {{backup_mysql_user}} -p{{backup_mysql_pass}} $DBNAME  > ${WORKDIR}/dump

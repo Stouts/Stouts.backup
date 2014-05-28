@@ -4,6 +4,5 @@
 # Do NOT modify this file by hand!
 
 WORKDIR={{backup_work}}/{{item.name}}
-DBNAME={{item.source.split('postgresql://')[-1]}}
 
-rm -rf "${WORKDIR}/${DBNAME}.gz"
+rm -rf ${WORKDIR}/dump

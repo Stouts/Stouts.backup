@@ -6,7 +6,7 @@ Stouts.backup
 Ansible role which manage backups. Support file backups, postgresql, mysql, mongo db backups.
 
 
-#### Variables
+## Variables
 
 The role variables and default values.
 
@@ -33,20 +33,22 @@ backup_postgres_host: ""
 backup_mysql_user: mysql
 backup_mysql_pass: ""
 
-backups: []                   # List of backup jobs
-                              # Ex. backups:
-                              #       - name: www
-                              #         schedule: 0 0 * * 0
+backup_profiles: []           # Setup backup profiles
+                              # Ex. backup_profiles:
+                              #       - name: www               # required param
+                              #         schedule: 0 0 * * 0     # if defined enabled cronjob
                               #         source: /var/www
                               #         max_age: 10D
                               #         target: s3://my.bucket/www
+                              #         exclude:
+                              #           - *.pyc
                               #       - name: postgresql
                               #         schedule: 0 4 * * *
                               #         source: postgresql://db_name
                               #         target: s3://my.bucket/postgresql
 
-# Default values
-# ==============
+# Default values (overide them in profiles bellow) 
+# ===============================================
 # (every value can be replaced in jobs individually)
 
 # GPG
@@ -77,8 +79,19 @@ backup_target: 'file:///var/backup'
 backup_target_user:
 backup_target_pass:
 
+# Time frame for old backups to keep, Used for the "purge" command.  
+# see duplicity man page, chapter TIME_FORMATS)
 backup_max_age: 1M
+
+# Number of full backups to keep. Used for the "purge-full" command. 
+# See duplicity man page, action "remove-all-but-n-full".
 backup_max_full_backups: 1
+
+# forces a full backup if last full backup reaches a specified age
+backup_full_max_age: 1M
+
+# set the size of backup chunks to VOLSIZE MB instead of the default 25MB.
+backup_volsize: 50
 
 # verbosity of output (error 0, warning 1-2, notice 3-4, info 5-8, debug 9)
 backup_verbosity: 3
@@ -86,7 +99,7 @@ backup_verbosity: 3
 backup_exclude: [] # List of filemasks to exlude
 ```
 
-#### Usage
+## Usage
 
 Add `Stouts.backup` to your roles and set variables in your playbook file.
 
@@ -102,25 +115,40 @@ Example:
   vars:
     backup_target_user: aws_access_key
     backup_target_pass: aws_secret
-    backups:
-    # Backup uploads
-    - name: uploads
+    backup_profiles:
+
+    # Backup file path
+    - name: uploads                               # Required params
         schedule: 0 3 * * 0                       # At 3am every day
         source: /usr/lib/project/uploads
         target: s3://s3-eu-west-1.amazonaws.com/backup.backet/{{inventory_hostname}}/uploads
-    # Backup postgresql
+
+    # Backup postgresql database
     - name: postgresql
         schedule: 0 4 * * 0                       # At 4am every day
-        source: postgresql://project
+        source: postgresql://project              # Backup prefixes: postgresql://, maysql://, mongo://
         target: s3://s3-eu-west-1.amazonaws.com/backup.backet/{{inventory_hostname}}/postgresql
         user: postgres
 
 ```
 
-#### License
+### Manage backups manually
+
+Run backup for profile `uploads` manually:
+
+    $ duply uploads backup
+
+Load backup for profile `postgresql` from cloud and restore database
+
+    $ duply postgresql restore
+
+Also see `duply usage`
+
+
+## License
 
 Licensed under the MIT License. See the LICENSE file for details.
 
-#### Feedback, bug-reports, requests, ...
+## Feedback, bug-reports, requests, ...
 
 Are [welcome](https://github.com/Stouts/Stouts.backup/issues)!

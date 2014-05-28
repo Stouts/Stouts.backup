@@ -4,5 +4,6 @@
 # Do NOT modify this file by hand!
 
 WORKDIR={{backup_work}}/{{item.name}}
+DBNAME={{item.source.split('mysql://')[-1]}}
 
-mongodump --out > $WORKDIR/dump
+mongorestore $WORKDIR/dump

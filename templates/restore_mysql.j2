@@ -4,5 +4,6 @@
 # Do NOT modify this file by hand!
 
 WORKDIR={{backup_work}}/{{item.name}}
+DBNAME={{item.source.split('postgresql://')[-1]}}
 
-mongodump --out > $WORKDIR/dump
+mysql -u {{backup_mysql_user}} -p{{backup_mysql_pass}} $DBNAME  < ${WORKDIR}/dump

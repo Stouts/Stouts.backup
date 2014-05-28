@@ -2,9 +2,9 @@
 # Do NOT modify this file by hand!
 
 # Run backups
-{% for backup in backups %}
-{% if backup.schedule|default(None) %}
-{{backup.schedule}} {{item.user|default(backup_user)}} {{backup_home}}/duply /etc/backup/{{backup.name}} backup >> {{backup_logdir}}/{{backup.name}}/{{backup_logfile}}
+{% for profile in backup_profiles %}
+{% if profile.schedule|default(None) %}
+{{profile.schedule}} {{profile.user|default(backup_user)}} {{backup_home}}/duply /etc/backup/{{profile.name}} backup >> {{backup_logdir}}/{{profile.name}}/{{backup_logfile}}
 {% endif %}
 {% endfor %}
 

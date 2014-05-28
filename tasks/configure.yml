@@ -13,35 +13,43 @@
 - name: Install duply
   copy: src=duply dest={{backup_home}}/duply owner={{backup_user}} mode=0755
 
-- name: Prepare backup profiles - pt. 1
+- name: Link duply
+  file: state=link src={{backup_home}}/duply dest=/usr/sbin/duply
+
+- name: Create profile directories
   file: path={{backup_home}}/{{item.name}} state=directory mode=0700 owner={{item.user|default(backup_user)}} 
-  with_items: backups
+  with_items: backup_profiles
 
-- name: Prepare backup profiles - pt. 2
+- name: Configure profiles
   template: src=conf.j2 dest={{backup_home}}/{{item.name}}/conf owner={{item.user|default(backup_user)}}
-  with_items: backups
+  with_items: backup_profiles
 
-- name: Prepare backup profiles - pt. 3
+- name: Configure exclude lists
   template: src=exclude.j2 dest={{backup_home}}/{{item.name}}/exclude owner={{item.user|default(backup_user)}} 
-  with_items: backups
+  with_items: backup_profiles
 
-- name: Prepare backup profiles - pt. 4
+- name: Configure pre scripts
   template: src=pre_{{item.source.split(':')[0]}}.j2 dest={{backup_home}}/{{item.name}}/pre owner={{item.user|default(backup_user)}} 
   when: item.source.find(':') != -1
-  with_items: backups
+  with_items: backup_profiles
 
-- name: Prepare backup profiles - pt. 5
+- name: Configure post scripts
   template: src=post_{{item.source.split(':')[0]}}.j2 dest={{backup_home}}/{{item.name}}/post owner={{item.user|default(backup_user)}} 
   when: item.source.find(':') != -1
-  with_items: backups
+  with_items: backup_profiles
 
-- name: Prepare backup profiles - pt. 6
+- name: Configure restore scripts
+  template: src=restore_{{item.source.split(':')[0]}}.j2 dest={{backup_home}}/{{item.name}}/restore owner={{item.user|default(backup_user)}} 
+  when: item.source.find(':') != -1
+  with_items: backup_profiles
+
+- name: Create work directories
   file: state=directory path={{backup_work}}/{{item.name}} owner={{item.user|default(backup_user)}} 
-  with_items: backups
+  with_items: backup_profiles
 
-- name: Prepare backup profiles - pt. 7
+- name: Create log directories
   file: state=directory path={{backup_logdir}}/{{item.name}} owner={{item.user|default(backup_user)}} 
-  with_items: backups
+  with_items: backup_profiles
 
 - name: Setup cron
   template: src=cron.j2 dest=/etc/cron.d/backup owner=root group=root mode=0644

@@ -358,8 +358,9 @@ DEFAULT_GPG_PW='_GPG_PASSWORD_'
 
 # function definitions ##########################
 function set_config { # sets config vars
+  local CONFHOME=/etc/backup
+
   local CONFHOME_COMPAT="$HOME/.ftplicity"
-  local CONFHOME="$HOME/.duply"
   local CONFHOME_ETC_COMPAT="/etc/ftplicity"
   local CONFHOME_ETC="/etc/duply"
 
@@ -2080,13 +2081,14 @@ case "$(tolower $cmd)" in
           -- "${dupl_opts[@]}" "$BACKEND_URL"
     ;;
   'restore')
-    OUT_PATH="${ftpl_pars[0]}"; TIME="${ftpl_pars[1]:-now}";
+    OUT_PATH="${ftpl_pars[0]:-$SOURCE}"; TIME="${ftpl_pars[1]:-now}";
     [ -z "$OUT_PATH" ] && error "  Missing parameter target_path for restore.
   
   Hint: 
     Syntax is -> $ME <profile> restore <target_path> [<age>]"
     
     duplify  -- -t "$TIME" "${dupl_opts[@]}" "$BACKEND_URL" "$OUT_PATH"
+    run_script $CONFDIR/restore
     ;;
   'fetch')
     IN_PATH="${ftpl_pars[0]}"; OUT_PATH="${ftpl_pars[1]}"; 
