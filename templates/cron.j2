@@ -3,6 +3,8 @@
 
 # Run backups
 {% for backup in backups|selectattr('schedule') %}
+{% if backup.schedule|default(None) %}
 {{backup.schedule}} {{item.user|default(backup_user)}} {{backup_home}}/duply /etc/backup/{{backup.name}} backup >> {{backup_logdir}}/{{backup.name}}/{{backup_logfile}}
+{% endif %}
 {% endfor %}
 
