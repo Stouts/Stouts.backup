@@ -23,7 +23,7 @@ script:
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
 
-  - /home/travis/backup/duply test backup
+  - /home/travis/backup/duply /home/travis/backup/test backup
   - test -d /home/travis/test || exit 1
   - ls -la /home/travis/test
 
