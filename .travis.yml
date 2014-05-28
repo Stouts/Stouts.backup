@@ -24,7 +24,8 @@ script:
     || (echo 'Idempotence test: fail' && exit 1)
 
   - /home/travis/backup/duply test backup
-  - [ d /home/travis/test ] || exit 1
+  - test -d /home/travis/test || exit 1
+  - ls -la /home/travis/test
 
 backup_home: /home/travis/backup
 backups:
