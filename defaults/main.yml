@@ -1,16 +1,5 @@
-Stouts.backup
-=============
+---
 
-[![Build Status](https://travis-ci.org/Stouts/Stouts.backup.png)](https://travis-ci.org/Stouts/Stouts.backup)
-
-Ansible role which manage backups. Support file backups, postgresql, mysql, mongo db backups.
-
-
-#### Variables
-
-The role variables and default values.
-
-```yaml
 backup_enabled: yes           # Enable the role
 backup_remove: no             # Set yes for uninstall the role from target system
 
@@ -84,43 +73,3 @@ backup_max_full_backups: 1
 backup_verbosity: 3
 
 backup_exclude: [] # List of filemasks to exlude
-```
-
-#### Usage
-
-Add `Stouts.backup` to your roles and set variables in your playbook file.
-
-Example:
-
-```yaml
-
-- hosts: all
-
-  roles:
-    - Stouts.backup
-
-  vars:
-    backup_target_user: aws_access_key
-    backup_target_pass: aws_secret
-    backups:
-    # Backup uploads
-    - name: uploads
-        schedule: 0 3 * * 0                       # At 3am every day
-        source: /usr/lib/project/uploads
-        target: s3://s3-eu-west-1.amazonaws.com/backup.backet/{{inventory_hostname}}/uploads
-    # Backup postgresql
-    - name: postgresql
-        schedule: 0 4 * * 0                       # At 4am every day
-        source: postgresql://project
-        target: s3://s3-eu-west-1.amazonaws.com/backup.backet/{{inventory_hostname}}/postgresql
-        user: postgres
-
-```
-
-#### License
-
-Licensed under the MIT License. See the LICENSE file for details.
-
-#### Feedback, bug-reports, requests, ...
-
-Are [welcome](https://github.com/Stouts/Stouts.backup/issues)!

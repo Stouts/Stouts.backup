@@ -1,0 +1,3 @@
+{% for exclude in item.exlude|default(backup_exclude) %}
+- {{exclude}}
+{% endfor %}

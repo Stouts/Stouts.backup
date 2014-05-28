@@ -1,0 +1,13 @@
+---
+
+- name: Add duplicity ppa
+  apt_repository: repo={{ backup_duplicity_ppa }} update_cache=yes
+
+- name: Install dependencies
+  apt: pkg={{item}}
+  with_items:
+    - cron
+    - duplicity
+    - gzip
+    - python-boto
+    - s3cmd

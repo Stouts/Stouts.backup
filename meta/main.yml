@@ -1,0 +1,16 @@
+---
+
+dependencies: []
+
+galaxy_info:
+  author: klen
+  company: Stouts
+  description: Backup system. Files, dirs, databases. Upload to clouds.
+  license: MIT
+  platforms:
+  - name: Ubuntu
+    versions:
+    - all
+  categories:
+  - system
+
