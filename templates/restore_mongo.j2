@@ -7,3 +7,4 @@ WORKDIR={{backup_work}}/{{item.name}}
 DBNAME={{item.source.split('mysql://')[-1]}}
 
 mongorestore $WORKDIR/dump
+rm -rf $WORKDIR/dump

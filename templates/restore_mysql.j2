@@ -7,3 +7,4 @@ WORKDIR={{backup_work}}/{{item.name}}
 DBNAME={{item.source.split('postgresql://')[-1]}}
 
 mysql -u {{backup_mysql_user}} -p{{backup_mysql_pass}} $DBNAME  < ${WORKDIR}/dump
+rm -rf $WORKDIR/dump

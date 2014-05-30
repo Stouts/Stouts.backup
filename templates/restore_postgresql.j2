@@ -7,3 +7,4 @@ WORKDIR={{backup_work}}/{{item.name}}
 DBNAME={{item.source.split('postgresql://')[-1]}}
 
 psql -U {{backup_postgres_user}} {{ '-h ' + backup_postgres_host  if backup_postgres_host else ''}} $DBNAME < $WORKDIR/dump
+rm -rf $WORKDIR/dump
