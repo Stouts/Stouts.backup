@@ -2,6 +2,7 @@
 
 - name: Add duplicity ppa
   apt_repository: repo='{{ backup_duplicity_ppa }}' update_cache=yes
+  when: backup_duplicity_ppa
 
 - name: Install dependencies
   apt: pkg={{item}}

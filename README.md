@@ -18,12 +18,11 @@ backup_user: "{{ansible_ssh_user}}" # Run backups from user
 backup_home: /etc/backup      # Backup configuration directory
 backup_work: /var/backup      # Working directory
 
-backup_duplicity_ppa: ppa:duplicity-team/ppa
+backup_duplicity_ppa: ppa:duplicity-team/ppa  # Set empty for skipping PPA addition
 
 # Logging
-backup_logdir: /var/log/backup
-backup_logfile: backup-`date +%Y-%m-%d`.txt
-backup_debug: no
+backup_logdir: /var/log/backup # Place where logs will be keepped
+backup_logrotate: yes         # Setup logs rotation
 
 # Posgresql
 backup_postgres_user: postgres
@@ -47,8 +46,8 @@ backup_profiles: []           # Setup backup profiles
                               #         source: postgresql://db_name
                               #         target: s3://my.bucket/postgresql
 
-# Default values (overide them in profiles bellow) 
-# ===============================================
+# Default values (overide them in backup profiles bellow) 
+# =======================================================
 # (every value can be replaced in jobs individually)
 
 # GPG
@@ -119,13 +118,13 @@ Example:
 
     # Backup file path
     - name: uploads                               # Required params
-        schedule: 0 3 * * 0                       # At 3am every day
+        schedule: 0 3 * * *                       # At 3am every day
         source: /usr/lib/project/uploads
         target: s3://s3-eu-west-1.amazonaws.com/backup.backet/{{inventory_hostname}}/uploads
 
     # Backup postgresql database
     - name: postgresql
-        schedule: 0 4 * * 0                       # At 4am every day
+        schedule: 0 4 * * *                       # At 4am every day
         source: postgresql://project              # Backup prefixes: postgresql://, maysql://, mongo://
         target: s3://s3-eu-west-1.amazonaws.com/backup.backet/{{inventory_hostname}}/postgresql
         user: postgres
