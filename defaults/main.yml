@@ -7,12 +7,11 @@ backup_user: "{{ansible_ssh_user}}" # Run backups from user
 backup_home: /etc/backup      # Backup configuration directory
 backup_work: /var/backup      # Working directory
 
-backup_duplicity_ppa: ppa:duplicity-team/ppa
+backup_duplicity_ppa: ppa:duplicity-team/ppa  # Set empty for skipping PPA addition
 
 # Logging
-backup_logdir: /var/log/backup
-backup_logfile: backup-`date +%Y-%m-%d`.txt
-backup_debug: no
+backup_logdir: /var/log/backup # Place where logs will be keepped
+backup_logrotate: yes         # Setup logs rotation
 
 # Posgresql
 backup_postgres_user: postgres
@@ -36,8 +35,8 @@ backup_profiles: []           # Setup backup profiles
                               #         source: postgresql://db_name
                               #         target: s3://my.bucket/postgresql
 
-# Default values (overide them in profiles bellow) 
-# ===============================================
+# Default values (overide them in backup profiles bellow) 
+# =======================================================
 # (every value can be replaced in jobs individually)
 
 # GPG

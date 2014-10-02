@@ -5,4 +5,4 @@
 
 WORKDIR={{backup_work}}/{{item.name}}
 
-mongodump --out > $WORKDIR/dump
+mongodump --out $WORKDIR/dump

@@ -1,55 +1,59 @@
 ---
 
-- name: Ensure for backup user is exists
+- name: backup-configure | Ensure for backup user is exists
   user: name={{backup_user}}
 
-- name: Ensure for backup directories is exits
+- name: backup-configure | Ensure for backup directories is exits
   file: path={{item}} state=directory owner={{backup_user}}
   with_items:
     - "{{backup_home}}"
     - "{{backup_work}}"
     - "{{backup_logdir}}"
 
-- name: Install duply
+- name: backup-configure | Install duply
   copy: src=duply dest={{backup_home}}/duply owner={{backup_user}} mode=0755
 
-- name: Link duply
+- name: backup-configure | Link duply
   file: state=link src={{backup_home}}/duply dest=/usr/sbin/duply
 
-- name: Create profile directories
+- name: backup-configure | Create profile directories
   file: path={{backup_home}}/{{item.name}} state=directory mode=0700 owner={{item.user|default(backup_user)}} 
   with_items: backup_profiles
 
-- name: Configure profiles
+- name: backup-configure | Configure profiles
   template: src=conf.j2 dest={{backup_home}}/{{item.name}}/conf owner={{item.user|default(backup_user)}}
   with_items: backup_profiles
 
-- name: Configure exclude lists
+- name: backup-configure | Configure exclude lists
   template: src=exclude.j2 dest={{backup_home}}/{{item.name}}/exclude owner={{item.user|default(backup_user)}} 
   with_items: backup_profiles
 
-- name: Configure pre scripts
+- name: backup-configure | Configure pre scripts
   template: src=pre_{{item.source.split(':')[0]}}.j2 dest={{backup_home}}/{{item.name}}/pre owner={{item.user|default(backup_user)}} 
   when: item.source.find(':') != -1
   with_items: backup_profiles
 
-- name: Configure post scripts
+- name: backup-configure | Configure post scripts
   template: src=post_{{item.source.split(':')[0]}}.j2 dest={{backup_home}}/{{item.name}}/post owner={{item.user|default(backup_user)}} 
   when: item.source.find(':') != -1
   with_items: backup_profiles
 
-- name: Configure restore scripts
+- name: backup-configure | Configure restore scripts
   template: src=restore_{{item.source.split(':')[0]}}.j2 dest={{backup_home}}/{{item.name}}/restore owner={{item.user|default(backup_user)}} 
   when: item.source.find(':') != -1
   with_items: backup_profiles
 
-- name: Create work directories
+- name: backup-configure | Create work directories
   file: state=directory path={{backup_work}}/{{item.name}} owner={{item.user|default(backup_user)}} 
   with_items: backup_profiles
 
-- name: Create log directories
-  file: state=directory path={{backup_logdir}}/{{item.name}} owner={{item.user|default(backup_user)}} 
-  with_items: backup_profiles
-
-- name: Setup cron
+- name: backup-configure | Setup cron
   template: src=cron.j2 dest=/etc/cron.d/backup owner=root group=root mode=0644
+
+- name: backup-configure | Create log files
+  file: state=touch path={{backup_logdir}}/{{item.name}}.log owner={{item.user|default(backup_user)}} group={{item.user|default(backup_user)}}
+  with_items: backup_profiles
+  changed_when: False
+
+- name: backup-configure | Configure logrotate
+  template: src=logrotate.j2 dest=/etc/logrotate.d/backup owner=root group=root mode=0644
