@@ -2,6 +2,7 @@ Stouts.backup
 =============
 
 [![Build Status](https://travis-ci.org/Stouts/Stouts.backup.png)](https://travis-ci.org/Stouts/Stouts.backup)
+[![Stories in Ready](https://badge.waffle.io/Stouts/Stouts.backup.svg?label=ready&title=Ready)](http://waffle.io/Stouts/Stouts.backup)
 
 Ansible role which manage backups. Support file backups, postgresql, mysql, mongo db backups.
 
