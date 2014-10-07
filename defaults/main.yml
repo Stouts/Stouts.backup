@@ -4,6 +4,7 @@ backup_enabled: yes           # Enable the role
 backup_remove: no             # Set yes for uninstall the role from target system
 
 backup_user: "{{ansible_ssh_user}}" # Run backups from user
+backup_group: "{{backup_user}}"
 backup_home: /etc/backup      # Backup configuration directory
 backup_work: /var/backup      # Working directory
 
