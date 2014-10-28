@@ -33,6 +33,7 @@ backup_profiles: []           # Setup backup profiles
                               #           - *.pyc
                               #       - name: postgresql
                               #         schedule: 0 4 * * *
+                              #         action: restore         # Choose action: backup/restore (default is backup)
                               #         source: postgresql://db_name
                               #         target: s3://my.bucket/postgresql
 
