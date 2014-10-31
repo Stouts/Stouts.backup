@@ -12,18 +12,22 @@ Ansible role which manage backups. Support file backups, postgresql, mysql, mong
 The role variables and default values.
 
 ```yaml
-backup_enabled: yes           # Enable the role
-backup_remove: no             # Set yes for uninstall the role from target system
+backup_enabled: yes             # Enable the role
+backup_remove: no               # Set yes for uninstall the role from target system
 
-backup_user: "{{ansible_ssh_user}}" # Run backups from user
-backup_home: /etc/backup      # Backup configuration directory
-backup_work: /var/backup      # Working directory
+backup_user: root               # Run backups as user
+backup_group: "{{backup_user}}"
+
+backup_home: /etc/duply         # Backup configuration directory
+backup_work: /var/duply         # Working directory
 
 backup_duplicity_ppa: ppa:duplicity-team/ppa  # Set empty for skipping PPA addition
+backup_duplicity_pkg: duplicity
+backup_duplicity_version:       # Set duplicity version
 
 # Logging
-backup_logdir: /var/log/backup # Place where logs will be keepped
-backup_logrotate: yes         # Setup logs rotation
+backup_logdir: /var/log/duply   # Place where logs will be keepped
+backup_logrotate: yes           # Setup logs rotation
 
 # Posgresql
 backup_postgres_user: postgres
@@ -44,6 +48,7 @@ backup_profiles: []           # Setup backup profiles
                               #           - *.pyc
                               #       - name: postgresql
                               #         schedule: 0 4 * * *
+                              #         action: restore         # Choose action: backup/restore (default is backup)
                               #         source: postgresql://db_name
                               #         target: s3://my.bucket/postgresql
 
@@ -138,7 +143,7 @@ Run backup for profile `uploads` manually:
 
     $ duply uploads backup
 
-Load backup for profile `postgresql` from cloud and restore database
+Load backup for profile `postgresql` from cloud and restore database (logged as postgres user)
 
     $ duply postgresql restore
 
