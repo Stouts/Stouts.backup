@@ -23,11 +23,11 @@ script:
     && (echo 'Idempotence test: pass' && exit 0)
     || (echo 'Idempotence test: fail' && exit 1)
 
-  - /home/travis/backup/duply /home/travis/backup/test backup
+  - sudo /usr/local/bin/duply test backup
   - test -d /home/travis/test || exit 1
-  - ls -la /home/travis/test
 
 backup_home: /home/travis/backup
+backup_duplicity_version: 0.6.18-0ubuntu3.5
 backup_profiles:
   - name: test
     source: /home/travis/build
