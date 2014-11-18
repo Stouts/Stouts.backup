@@ -26,18 +26,15 @@
   with_items: backup_profiles
 
 - name: backup-configure | Configure pre scripts
-  template: src=pre_{{item.source.split(':')[0]}}.j2 dest={{backup_home}}/{{item.name}}/pre owner={{item.user|default(backup_user)}} group={{item.group|default(backup_group)}} 
-  when: item.source.find(':') != -1
+  template: src=pre.j2 dest={{backup_home}}/{{item.name}}/pre owner={{item.user|default(backup_user)}} group={{item.group|default(backup_group)}} 
   with_items: backup_profiles
 
 - name: backup-configure | Configure post scripts
-  template: src=post_{{item.source.split(':')[0]}}.j2 dest={{backup_home}}/{{item.name}}/post owner={{item.user|default(backup_user)}} group={{item.group|default(backup_group)}} 
-  when: item.source.find(':') != -1
+  template: src=post.j2 dest={{backup_home}}/{{item.name}}/post owner={{item.user|default(backup_user)}} group={{item.group|default(backup_group)}} 
   with_items: backup_profiles
 
 - name: backup-configure | Configure restore scripts
-  template: src=restore_{{item.source.split(':')[0]}}.j2 dest={{backup_home}}/{{item.name}}/restore owner={{item.user|default(backup_user)}} group={{item.group|default(backup_group)}} 
-  when: item.source.find(':') != -1
+  template: src=restore.j2 dest={{backup_home}}/{{item.name}}/restore owner={{item.user|default(backup_user)}} group={{item.group|default(backup_group)}} 
   with_items: backup_profiles
 
 - name: backup-configure | Create work directories
