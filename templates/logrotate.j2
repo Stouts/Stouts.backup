@@ -3,10 +3,12 @@
 
 {% for profile in backup_profiles %}
 {{backup_logdir}}/{{profile.name}}.log {
-  rotate 7
-  daily
   compress
+  copytruncate
+  daily
+  dateext
   missingok
-  notifempty
+  rotate 7
+  size 10M
 }
 {% endfor %}
