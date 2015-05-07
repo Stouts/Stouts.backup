@@ -19,7 +19,7 @@ rm -rf $WORKDIR/dump
 
 {% elif item.source.startswith('mongo://') %}
 
-mongorestore $WORKDIR/dump
+mongorestore --drop $WORKDIR/dump
 rm -rf $WORKDIR/dump
 
 {% endif %}
