@@ -157,3 +157,11 @@ Licensed under the MIT License. See the LICENSE file for details.
 ## Feedback, bug-reports, requests, ...
 
 Are [welcome](https://github.com/Stouts/Stouts.backup/issues)!
+
+If you wish to express your appreciation for the role, you are welcome to send
+a postcard to:
+
+    Kirill Klenov
+    pos. Severny 8-3
+    MO, Istra, 143500
+    Russia

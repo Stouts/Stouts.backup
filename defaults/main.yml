@@ -20,6 +20,7 @@ backup_logrotate: yes           # Setup logs rotation
 # Posgresql
 backup_postgres_user: postgres
 backup_postgres_host: ""
+backup_postgres_port: 5432
 
 # Mysql
 backup_mysql_user: mysql
