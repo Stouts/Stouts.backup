@@ -44,6 +44,8 @@ backup_profiles: []           # Setup backup profiles
                               #         source: /var/www
                               #         max_age: 10D
                               #         target: s3://my.bucket/www
+                              #         params:
+                              #           - "BEST_PASSWORD={{ best_password }}"
                               #         exclude:
                               #           - *.pyc
                               #       - name: postgresql
