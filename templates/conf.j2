@@ -64,6 +64,11 @@ DUPL_PARAMS="$DUPL_PARAMS --volsize $VOLSIZE "
 #FILENAME='.duplicity-ignore'
 #DUPL_PARAMS="$DUPL_PARAMS --exclude-if-present '$FILENAME'"
 
+# Add params needed for target or backup process.
+{% for param in item.params|default([]) %}
+{{ param }}
+{% endfor %}
+
 # temporary file space. at least the size of the biggest file in backup
 # for a successful restoration process. (default is '/tmp', if not set)
 #TEMP_DIR=/tmp
