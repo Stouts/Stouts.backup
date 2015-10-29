@@ -19,7 +19,15 @@ rm -rf $WORKDIR/dump
 
 {% elif item.source.startswith('mongo://') %}
 
-mongorestore --drop $WORKDIR/dump
+{% if item.source == 'mongo://' %}
+# Restore all databases
+mongorestore -u {{backup_mongo_user}} -p {{backup_mongo_pass}} -h {{backup_mongo_host}} --port {{backup_mongo_port}} --drop $WORKDIR/dump
+{% else %}
+# Restore the passed database
+DBNAME={{item.source.split('/')[-1]}}
+mongorestore -u {{backup_mongo_user}} -p {{backup_mongo_pass}} -h {{backup_mongo_host}} --port {{backup_mongo_port}} -d $DBNAME --drop $WORKDIR/dump
+{% endif %}
+
 rm -rf $WORKDIR/dump
 
 {% endif %}

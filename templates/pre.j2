@@ -17,7 +17,14 @@ mysqldump -u {{backup_mysql_user}} -p{{backup_mysql_pass}} $DBNAME  > ${WORKDIR}
 
 {% elif item.source.startswith('mongo://') %}
 
-mongodump --out $WORKDIR/dump
+{% if item.source == 'mongo://' %}
+# Dump all databases
+mongodump -u {{backup_mongo_user}} -p {{backup_mongo_pass}} -h {{backup_mongo_host}} --port {{backup_mongo_port}} --out $WORKDIR/dump
+{% else %}
+# Dump the passed database
+DBNAME={{item.source.split('/')[-1]}}
+mongodump -u {{backup_mongo_user}} -p {{backup_mongo_pass}} -h {{backup_mongo_host}} --port {{backup_mongo_port}} -d $DBNAME --out $WORKDIR/dump
+{% endif %}
 
 {% endif %}
 
