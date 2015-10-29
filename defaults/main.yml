@@ -26,6 +26,12 @@ backup_postgres_port: 5432
 backup_mysql_user: mysql
 backup_mysql_pass: ""
 
+# MongoDB
+backup_mongo_user: mongo
+backup_mongo_pass: ""
+backup_mongo_host: 127.0.0.1
+backup_mongo_port: 27017
+
 backup_profiles: []           # Setup backup profiles
                               # Ex. backup_profiles:
                               #       - name: www               # required param
