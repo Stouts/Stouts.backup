@@ -2199,8 +2199,7 @@ case "$(tolower $cmd)" in
   Hint: 
     Syntax is -> $ME <profile> restore <target_path> [<age>]"
     
-    duplify  -- -t "$TIME" "${dupl_opts[@]}" "$BACKEND_URL" "$OUT_PATH"
-    run_script $CONFDIR/restore;
+    duplify  -- -t "$TIME" "${dupl_opts[@]}" "$BACKEND_URL" "$OUT_PATH" && run_script $CONFDIR/restore;
     ;;
   'fetch')
     IN_PATH="${ftpl_pars[0]}"; OUT_PATH="${ftpl_pars[1]}"; 
