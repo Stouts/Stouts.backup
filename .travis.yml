@@ -27,7 +27,6 @@ script:
   - test -d /home/travis/test || exit 1
 
 backup_home: /home/travis/backup
-backup_duplicity_version: 0.6.18-0ubuntu3.5
 backup_profiles:
   - name: test
     source: /home/travis/build

@@ -1,0 +1,28 @@
+---
+
+- name: Ensure libselinux-python is installed
+  yum: name=libselinux-python
+
+- name: Install EPEL repo
+  yum:
+    name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
+    state: present
+
+- name: Import EPEL GPG key
+  rpm_key:
+    key: "/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}"
+    state: present
+
+- name: Install dependencies
+  yum: name={{item}}
+  with_items:
+    - cronie
+    - gzip
+    - python-boto
+    - s3cmd
+
+- set_fact: backup_duplicity_pkg="{{backup_duplicity_pkg}}-{{backup_duplicity_version}}"
+  when: backup_duplicity_version
+
+- name: Install duplicity
+  yum: name={{backup_duplicity_pkg}}

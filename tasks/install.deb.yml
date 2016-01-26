@@ -1,5 +1,7 @@
 ---
 
+- include_vars: "{{ansible_distribution}}.yml"
+
 - name: Add duplicity ppa
   apt_repository: repo='{{ backup_duplicity_ppa }}' update_cache=yes
   when: backup_duplicity_ppa
