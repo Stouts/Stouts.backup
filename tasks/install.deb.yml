@@ -2,17 +2,13 @@
 
 - include_vars: "{{ansible_distribution}}.yml"
 
-- name: Add duplicity ppa
-  apt_repository: repo='{{ backup_duplicity_ppa }}' update_cache=yes
-  when: backup_duplicity_ppa
-
 - name: Install dependencies
-  apt: pkg={{item}}
+  apt: name={{item}}
   with_items:
-    - cron
-    - gzip
-    - python-boto
-    - s3cmd
+  - cron
+  - gzip
+  - python-boto
+  - s3cmd
 
 - set_fact: backup_duplicity_pkg="{{backup_duplicity_pkg}}={{backup_duplicity_version}}"
   when: backup_duplicity_version
