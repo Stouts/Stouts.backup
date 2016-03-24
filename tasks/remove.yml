@@ -7,6 +7,6 @@
 - name: Uninstall the role - pt. 2
   file: state=absent path={{item}}
   with_items:
-    - "{{backup_home}}"
-    - "{{backup_work}}"
-    - "{{backup_logdir}}"
+  - "{{backup_home}}"
+  - "{{backup_work}}"
+  - "{{backup_logdir}}"

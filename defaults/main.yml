@@ -9,7 +9,6 @@ backup_group: "{{backup_user}}"
 backup_home: /etc/duply         # Backup configuration directory
 backup_work: /var/duply         # Working directory
 
-backup_duplicity_ppa: ppa:duplicity-team/ppa  # Set empty for skipping PPA addition
 backup_duplicity_pkg: duplicity
 backup_duplicity_version:       # Set duplicity version
 
