@@ -11,7 +11,7 @@
   - "{{backup_logdir}}"
 
 - name: backup-configure | Install duply
-  template: src=duply.sh.j2 dest=/usr/local/bin/duply owner={{backup_user}} group={{backup_group}} mode=0755
+  template: src=duply.sh.j2 dest=/usr/bin/duply owner={{backup_user}} group={{backup_group}} mode=0755
 
 - name: backup-configure | Create profile directories
   file: path={{backup_home}}/{{item.name}} state=directory mode=0700 owner={{item.user|default(backup_user)}} group={{item.group|default(backup_group)}} 

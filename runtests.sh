@@ -9,7 +9,7 @@ IMAGES=(
 TESTS=(
     "ansible-playbook -c local --syntax-check test.yml"
     "ansible-playbook -c local test.yml"
-    "test -x /usr/local/bin/duply"
+    "test -x /usr/bin/duply"
 )
 
 APPDIR=/var/tests
