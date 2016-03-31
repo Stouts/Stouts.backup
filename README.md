@@ -14,6 +14,7 @@ The role variables and default values.
 ```yaml
 backup_enabled: yes             # Enable the role
 backup_remove: no               # Set yes for uninstall the role from target system
+backup_cron: yes                # Setup cron tasks for backup
 
 backup_user: root               # Run backups as user
 backup_group: "{{backup_user}}"
