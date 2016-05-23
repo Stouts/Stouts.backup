@@ -7,8 +7,8 @@ backup_cron: yes                # Setup cron tasks for backup
 backup_user: root               # Run backups as user
 backup_group: "{{backup_user}}"
 
-backup_home: /etc/duply         # Backup configuration directory
-backup_work: /var/duply         # Working directory
+backup_home: /etc/duply             # Backup configuration directory
+backup_work: /var/duply             # Working directory
 
 backup_duplicity_pkg: duplicity
 backup_duplicity_version:       # Set duplicity version
