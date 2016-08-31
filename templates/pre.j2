@@ -23,7 +23,7 @@ mysqldump -u {{backup_mysql_user}} -p{{backup_mysql_pass}} $DBNAME  > ${WORKDIR}
 
 {% elif item.source.startswith('mongo://') %}
 
-mongodump --out $WORKDIR/dump
+mongodump --oplog --out $WORKDIR/dump
 
 {% endif %}
 
