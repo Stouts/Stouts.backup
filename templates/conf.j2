@@ -71,7 +71,7 @@ DUPL_PARAMS="$DUPL_PARAMS --volsize $VOLSIZE "
 
 # temporary file space. at least the size of the biggest file in backup
 # for a successful restoration process. (default is '/tmp', if not set)
-#TEMP_DIR=/tmp
+TEMP_DIR={{ backup_temp_dir }}
 
 # more duplicity command line options can be added in the following way
 # don't forget to leave a separating space char at the end
