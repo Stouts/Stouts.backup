@@ -23,7 +23,21 @@ mysqldump -u {{backup_mysql_user}} -p{{backup_mysql_pass}} $DBNAME  > ${WORKDIR}
 
 {% elif item.source.startswith('mongo://') %}
 
-mongodump --oplog --out $WORKDIR/dump
+ARGS=""
+
+{% if item.db %}
+ARGS="--db {{item.db}}"
+{% endif %}
+
+{% for colname in item.exclude_collection%}
+ARGS="$ARGS --excludeCollection={{colname}}"
+{% endfor %}
+
+{% if not item.exclude_collection%}
+ARGS="$ARGS --oplog"
+{% endif %}
+
+mongodump --out $WORKDIR/dump $ARGS
 
 {% endif %}
 
