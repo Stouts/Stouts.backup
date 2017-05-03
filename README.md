@@ -37,6 +37,7 @@ backup_postgres_host: ""
 # Mysql
 backup_mysql_user: mysql
 backup_mysql_pass: ""
+backup_mysql_host: ""
 
 backup_profiles: []           # Setup backup profiles
                               # Ex. backup_profiles:
