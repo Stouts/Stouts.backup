@@ -50,6 +50,16 @@ backup_profiles: []           # Setup backup profiles
 backup_gpg_key: disabled
 backup_gpg_pw: ""
 backup_gpg_opts: ''
+# Configuration lines to be thrown in gpg-agent.conf
+backup_gpg_agent_conf:
+  - line: "allow-loopback-pinentry"
+    regexp: "^allow-loopback-pinentry"
+# Configuration lines to be thrown in gpg.conf
+backup_gpg_home_conf:
+  - line: "use-agent"
+    regexp: "^use-agent"
+  - line: "pinentry-mode loopback"
+    regexp: "^pinentry-mode"
 
 # TARGET
 # syntax is

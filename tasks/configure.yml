@@ -52,3 +52,18 @@
 
 - name: backup-configure | Configure logrotate
   template: src=logrotate.j2 dest=/etc/logrotate.d/backup owner=root group=root mode=0644
+
+- name: backup-configure | Detect gpg version
+  command: gpg --version
+  changed_when: False
+  register: gpg_version_results
+
+- name: backup-configure | Set gpg.conf under GPG2
+  lineinfile: dest="{{ansible_user_dir}}/.gnupg/gpg.conf" line="{{ item.line }}" regexp="{{ item.regexp }}" create=yes
+  with_items: "{{backup_gpg_home_conf}}"
+  when: "'gpg (GnuPG) 2' in gpg_version_results.stdout"
+
+- name: backup-configure | Set gpg-agent.conf under GPG2
+  lineinfile: dest="{{ansible_user_dir}}/.gnupg/gpg-agent.conf" line="{{ item.line }}" regexp="{{ item.regexp }}" create=yes
+  with_items: "{{backup_gpg_agent_conf}}"
+  when: "'gpg (GnuPG) 2' in gpg_version_results.stdout"
