@@ -19,6 +19,7 @@
     - cronie
     - gzip
     - python-boto
+    - python-paramiko
     - s3cmd
 
 - set_fact: backup_duplicity_pkg="{{backup_duplicity_pkg}}-{{backup_duplicity_version}}"
