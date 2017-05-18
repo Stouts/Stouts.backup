@@ -13,5 +13,14 @@
 - set_fact: backup_duplicity_pkg="{{backup_duplicity_pkg}}={{backup_duplicity_version}}"
   when: backup_duplicity_version
 
+- name: Ensure backports is installed for duplicity 7+
+  apt_repository:
+    repo: "{{ backup_debian_url }}"
+    update_cache: yes
+  register: backports_result
+  when: backup_modern_duplicity
+
 - name: Install duplicity
-  apt: pkg={{backup_duplicity_pkg}}
+  apt:
+    pkg: "{{backup_duplicity_pkg}}"
+    default_release: "{{ ansible_lsb.codename+'-backports' if not backports_result.skipped|default(false) else omit }}"
