@@ -20,13 +20,19 @@ GPG_PW_SIGN='{{item.gpg_pw_sign}}'
 {% endif %}
 GPG_OPTS='{{item.gpg_opts|default(backup_gpg_opts)}}'
 
-TARGET='{{item.target|default(backup_target)}}'
+{% set target = item.target|default(backup_target) %}
+TARGET='{{target}}'
+
+{% if target.startswith('s3://') %}
+{% set template_target_user = "export AWS_ACCESS_KEY_ID" %}
+{% set template_target_pass = "export AWS_SECRET_ACCESS_KEY" %}
+{% endif %}
 
 {% if item.target_user|default(backup_target_user) %}
-TARGET_USER='{{item.target_user|default(backup_target_user)}}'
+{{template_target_user|default("TARGET_USER")}}='{{item.target_user|default(backup_target_user)}}'
 {% endif %}
 {% if item.target_pass|default(backup_target_pass) %}
-TARGET_PASS='{{item.target_pass|default(backup_target_pass)}}'
+{{template_target_pass|default("TARGET_PASS")}}='{{item.target_pass|default(backup_target_pass)}}'
 {% endif %}
 
 {% if item.source.startswith('postgresql://') or item.source.startswith('mysql://') or item.source.startswith('mongo://') %}
