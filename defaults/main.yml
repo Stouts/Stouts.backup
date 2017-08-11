@@ -104,6 +104,6 @@ backup_exclude: [] # List of filemasks to exlude
 
 # on certain distros like jessie, utilize backports to get a newer version of
 # duplicity
-backup_modern_duplicty: false
+backup_modern_duplicity: false
 
 backup_debian_url: "deb http://ftp.debian.org/debian {{ansible_lsb.codename}}-backports main"
