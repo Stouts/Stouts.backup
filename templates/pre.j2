@@ -14,11 +14,11 @@ pg_dump -U {{backup_postgres_user}} {{ '-h ' + backup_postgres_host  if backup_p
 
 {% if item.source == 'mysql://' %}
 # Dump all databases
-mysqldump -u {{backup_mysql_user}} -p{{backup_mysql_pass}} --all-databases > ${WORKDIR}/dump
+mysqldump -u {{backup_mysql_user}} -p'{{backup_mysql_pass}}' --all-databases > ${WORKDIR}/dump
 {% else %}
 # Dump the passed database
 DBNAME={{item.source.split('mysql://')[-1]}}
-mysqldump -u {{backup_mysql_user}} -p{{backup_mysql_pass}} $DBNAME  > ${WORKDIR}/dump
+mysqldump -u {{backup_mysql_user}} -p'{{backup_mysql_pass}}' $DBNAME  > ${WORKDIR}/dump
 {% endif %}
 
 {% elif item.source.startswith('mongo://') %}
