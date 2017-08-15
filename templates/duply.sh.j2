@@ -2138,20 +2138,20 @@ case "$(tolower $cmd)" in
     ( run_script "$script" )
     ;;
   'bkp')
-    duplify -- "${dupl_opts[@]}" --exclude-globbing-filelist "$EXCLUDE" \
+    duplify -- "${dupl_opts[@]}" --exclude-filelist "$EXCLUDE" \
           "$SOURCE" "$BACKEND_URL"
     ;;
   'incr')
-    duplify incr -- "${dupl_opts[@]}" --exclude-globbing-filelist "$EXCLUDE" \
+    duplify incr -- "${dupl_opts[@]}" --exclude-filelist "$EXCLUDE" \
           "$SOURCE" "$BACKEND_URL"
     ;;
   'full')
-    duplify full -- "${dupl_opts[@]}" --exclude-globbing-filelist "$EXCLUDE" \
+    duplify full -- "${dupl_opts[@]}" --exclude-filelist "$EXCLUDE" \
           "$SOURCE" "$BACKEND_URL"
     ;;
   'verify')
     TIME="${ftpl_pars[0]:+"-t ${ftpl_pars[0]}"}"
-    duplify verify -- $TIME "${dupl_opts[@]}" --exclude-globbing-filelist "$EXCLUDE" \
+    duplify verify -- $TIME "${dupl_opts[@]}" --exclude-filelist "$EXCLUDE" \
           "$BACKEND_URL" "$SOURCE"
     ;;
   'verifypath')
@@ -2162,7 +2162,7 @@ case "$(tolower $cmd)" in
   Hint:
     Syntax is -> $ME <profile> verifyPath <rel_bkp_path> <local_path> [<age>]"
 
-    duplify verify -- $TIME "${dupl_opts[@]}" --exclude-globbing-filelist "$EXCLUDE" \
+    duplify verify -- $TIME "${dupl_opts[@]}" --exclude-filelist "$EXCLUDE" \
           --file-to-restore "$IN_PATH" "$BACKEND_URL" "$OUT_PATH"
     ;;
   'list')
