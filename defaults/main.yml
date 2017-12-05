@@ -92,3 +92,5 @@ backup_volsize: 50
 backup_verbosity: 3
 
 backup_exclude: [] # List of filemasks to exlude
+
+backup_include: [] # List of filemasks to exlude

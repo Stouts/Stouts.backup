@@ -1,3 +1,6 @@
+{% for include in item.include|default(backup_include) %}
++ {{include}}
+{% endfor %}
 {% for exclude in item.exclude|default(backup_exclude) %}
 - {{exclude}}
 {% endfor %}

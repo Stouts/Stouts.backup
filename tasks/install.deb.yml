@@ -2,6 +2,17 @@
 
 - include_vars: "{{ansible_distribution}}.yml"
 
+#- name: Adding key EBFF6B99D9B78493 (sonarr)
+#  apt_key:
+#    keyserver: keyserver.ubuntu.com
+#    id: EBFF6B99D9B78493
+
+- name: Adding repository
+  apt_repository:
+    repo: "{{ backup_duplicity_ppa }}"
+    state: present
+  when: backup_duplicity_ppa is defined
+
 - name: Install dependencies
   apt: name={{item}}
   with_items:
