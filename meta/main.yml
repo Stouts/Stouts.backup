@@ -1,6 +1,7 @@
 ---
 
-dependencies: []
+dependencies:
+  - { role: Stouts.python, python_install: [b2] }
 
 galaxy_info:
   author: klen
