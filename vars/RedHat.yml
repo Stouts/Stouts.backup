@@ -1,7 +1,7 @@
 ---
 
 dependencies:
-  - cron
+  - cronie
   - gzip
   - python-boto
   - s3cmd

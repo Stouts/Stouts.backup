@@ -1,5 +1,7 @@
 ---
 
+- include_vars: "{{ ansible_os_family }}.yml"
+
 - name: Ensure libselinux-python is installed
   yum: name=libselinux-python
 
@@ -14,12 +16,9 @@
     state: present
 
 - name: Install dependencies
-  yum: name={{item}}
-  with_items:
-    - cronie
-    - gzip
-    - python-boto
-    - s3cmd
+  yum: name={{ dependencies }}
+  update_cache: yes
+  
 
 - set_fact: backup_duplicity_pkg="{{backup_duplicity_pkg}}-{{backup_duplicity_version}}"
   when: backup_duplicity_version
