@@ -1,7 +1,7 @@
 ---
 
 dependencies:
-  - { role: ansible-role-python, python_install: [b2,pyrax] }
+  - { role: ansible-role-python, python_install: [b2] }
 
 galaxy_info:
   author: klen
