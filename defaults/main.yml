@@ -39,7 +39,11 @@ backup_profiles: []           # Setup backup profiles
                               #         max_age: 10D
                               #         target: s3://my.bucket/www
                               #         exclude:
-                              #           - *.pyc
+                              #           - "+ /var/www/folder1"
+                              #           - "+ /var/www/folder2"
+                              #           - "- **/folder3/*.log"
+                              #           - "+ **/folder3"
+                              #           - "- **"
                               #       - name: postgresql
                               #         schedule: 0 4 * * *
                               #         action: restore         # Choose action: backup/restore (default is backup)
