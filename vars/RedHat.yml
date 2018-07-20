@@ -3,5 +3,5 @@
 dependencies:
   - cronie
   - gzip
-  - python-boto
-  - s3cmd
+  - python2-boto #amazon
+  - s3cmd #amazon
