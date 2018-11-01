@@ -21,8 +21,9 @@
     state: absent
 
 - name: Install dependencies
-  yum: name={{ dependencies }}
-  update_cache: yes  
+  yum:
+    name: "{{ dependencies }}"
+    update_cache: yes
 
 - set_fact: backup_duplicity_pkg="{{backup_duplicity_pkg}}-{{backup_duplicity_version}}"
   when: backup_duplicity_version
