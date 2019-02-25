@@ -42,7 +42,7 @@
   with_items: "{{backup_profiles}}"
 
 - name: backup-configure | Setup cron
-  template: src=cron.j2 dest=/etc/cron.d/backup owner=root group=root mode=0644
+  template: src=cron.j2 dest=/etc/cron.d/{{backup_cron_filename}} owner=root group=root mode=0644
   when: backup_cron
 
 - name: backup-configure | Create log files
