@@ -1,7 +1,8 @@
 ---
 
 dependencies:
-  - { role: ansible-role-python, python_install: ["setuptools>=20.2", b2] }
+  - { role: ansible-role-python, python_install: ["setuptools>=20.2"] }
+  - { role: ansible-role-python, python_install: [b2] }
 
 galaxy_info:
   author: klen
