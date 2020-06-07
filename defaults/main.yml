@@ -6,7 +6,7 @@ backup_enabled: yes             # Enable the role
 backup_remove: no               # Set yes for uninstall the role from target system
 backup_cron: yes                # Setup cron tasks for backup
 
-backup_duplicity_ppa: ppa:duplicity-team/ppa # Install newest version from repo
+backup_duplicity_ppa: ppa:duplicity-team/duplicity-release-git # Install newest version from repo
 
 backup_user: root               # Run backups as user
 backup_group: "{{backup_user}}"

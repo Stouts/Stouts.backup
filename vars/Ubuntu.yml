@@ -3,5 +3,5 @@
 dependencies:
   - cron
   - gzip
-  - python-boto
+  - python3-boto
   - s3cmd
