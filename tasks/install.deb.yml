@@ -2,13 +2,26 @@
 
 - include_vars: "{{ansible_distribution}}.yml"
 
+# This is required until duplicity works with python3.8 (ubuntu 20.04)
+- name: Install python 3.7 - add repo
+  apt_repository:
+    repo: ppa:deadsnakes/ppa
+    state: present
+    update_cache: yes
+
+- name: Install python 3.7 - install package
+  package:
+    name: python3.7
+    state: present
+
+- name: Adding repository
+  apt_repository:
+    repo: "{{ backup_duplicity_ppa }}"
+    state: present
+  when: backup_duplicity_ppa is defined
+
 - name: Install dependencies
-  apt: name={{item}}
-  with_items:
-  - cron
-  - gzip
-  - python-boto
-  - s3cmd
+  apt: name={{ dependencies }}
 
 - set_fact: backup_duplicity_pkg="{{backup_duplicity_pkg}}={{backup_duplicity_version}}"
   when: backup_duplicity_version

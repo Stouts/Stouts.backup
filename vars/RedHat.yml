@@ -1,0 +1,7 @@
+---
+
+dependencies:
+  - cronie
+  - gzip
+  - python2-boto #amazon
+  - s3cmd #amazon

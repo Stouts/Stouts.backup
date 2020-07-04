@@ -1,11 +1,15 @@
 ---
 
+#python_install: b2
+
 backup_enabled: yes             # Enable the role
 backup_remove: no               # Set yes for uninstall the role from target system
 backup_cron: yes                # Setup cron tasks for backup
 
+backup_duplicity_ppa: ppa:duplicity-team/duplicity-release-git # Install newest version from repo
+
 backup_user: root               # Run backups as user
-backup_group: "{{backup_user}}"
+backup_group: "{{ backup_user }}"
 
 backup_home: /etc/duply             # Backup configuration directory
 backup_work: /var/duply             # Working directory
@@ -35,7 +39,11 @@ backup_profiles: []           # Setup backup profiles
                               #         max_age: 10D
                               #         target: s3://my.bucket/www
                               #         exclude:
-                              #           - *.pyc
+                              #           - "+ /var/www/folder1"
+                              #           - "+ /var/www/folder2"
+                              #           - "- **/folder3/*.log"
+                              #           - "+ **/folder3"
+                              #           - "- **"
                               #       - name: postgresql
                               #         schedule: 0 4 * * *
                               #         action: restore         # Choose action: backup/restore (default is backup)
@@ -92,3 +100,17 @@ backup_volsize: 50
 backup_verbosity: 3
 
 backup_exclude: [] # List of filemasks to exlude
+
+backup_include: [] # List of filemasks to exlude
+
+backup_credential_files: [] # List of credential file
+
+backup_credential_hubic_email: 
+backup_credential_hubic_password: 
+backup_credential_hubic_client_id: 
+backup_credential_hubic_client_secret: 
+backup_credential_hubic_redirect_uri: 
+
+backup_profiles_exclude_list_host: []
+backup_profiles_exclude_list_group: []
+backup_profiles_exclude_list_all: []

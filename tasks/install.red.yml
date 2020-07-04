@@ -1,5 +1,7 @@
 ---
 
+- include_vars: "{{ ansible_os_family }}.yml"
+
 - name: Ensure libselinux-python is installed
   yum: name=libselinux-python
 
@@ -13,13 +15,15 @@
     key: "/etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version }}"
     state: present
 
+- name: Remove urllib3 because it will be installed as a dependency later on with rpm
+  pip: 
+    name: urllib3
+    state: absent
+
 - name: Install dependencies
-  yum: name={{item}}
-  with_items:
-    - cronie
-    - gzip
-    - python-boto
-    - s3cmd
+  yum:
+    name: "{{ dependencies }}"
+    update_cache: yes
 
 - set_fact: backup_duplicity_pkg="{{backup_duplicity_pkg}}-{{backup_duplicity_version}}"
   when: backup_duplicity_version

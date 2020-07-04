@@ -8,7 +8,12 @@
 {% else %}
 GPG_KEY='{{ item.gpg_key|default(backup_gpg_key) }}'
 {% endif %}
+{% if item.gpg_pw|default(backup_gpg_pw) == 'disabled' %}
+GPG_KEY='disabled'
+#GPG_PW='{{ item.gpg_pw|default(backup_gpg_pw) }}'
+{% else %}
 GPG_PW='{{ item.gpg_pw|default(backup_gpg_pw) }}'
+{% endif %}
 {% if item.gpg_keys_enc|default(None) %}
 GPG_KEYS_ENC='{{item.gpg_keys_enc}}'
 {% endif %}
