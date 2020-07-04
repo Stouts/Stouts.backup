@@ -9,7 +9,7 @@ backup_cron: yes                # Setup cron tasks for backup
 backup_duplicity_ppa: ppa:duplicity-team/duplicity-release-git # Install newest version from repo
 
 backup_user: root               # Run backups as user
-backup_group: "{{backup_user}}"
+backup_group: "{{ backup_user }}"
 
 backup_home: /etc/duply             # Backup configuration directory
 backup_work: /var/duply             # Working directory
@@ -110,3 +110,7 @@ backup_credential_hubic_password:
 backup_credential_hubic_client_id: 
 backup_credential_hubic_client_secret: 
 backup_credential_hubic_redirect_uri: 
+
+backup_profiles_exclude_list_host: []
+backup_profiles_exclude_list_group: []
+backup_profiles_exclude_list_all: []
